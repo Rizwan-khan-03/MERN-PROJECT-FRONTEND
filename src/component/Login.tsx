@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink ,useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 function Login() {
     const navigate =useNavigate()
@@ -8,10 +8,8 @@ function Login() {
         email:'',
         password:''
     })
-    // <NavLink to='product'>Login</NavLink>
     const onChangeHandler =(e:any)=>{
         const {name,value}=e.target;
-        // setForm({[name]:value})
         setForm((prevState:any) => {
             return {
               ...prevState,
