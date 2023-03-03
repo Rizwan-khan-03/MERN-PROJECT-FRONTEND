@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
-import { NavLink ,useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
+import { RegisterUsers, setToken } from '../App/service'
 
 function Login() {
     const navigate =useNavigate()
     const [form,setForm]=useState<any>({
-        username:'',
+        name:'',
         email:'',
         password:''
     })
-    // <NavLink to='product'>Login</NavLink>
     const onChangeHandler =(e:any)=>{
         const {name,value}=e.target;
-        // setForm({[name]:value})
         setForm((prevState:any) => {
             return {
               ...prevState,
@@ -19,14 +18,26 @@ function Login() {
             };
           });
     }
-    const submitHandler=()=>{
+    const submitHandler=async ()=>{
         // 
-        if(form.username && form.email && form.password){
-            console.log("form",form);
-            navigate('product')
-        }else{
-            alert('Please Fill All Details')
+        try {
+            if(form.name && form.email && form.password){
+                const res: any = await RegisterUsers(form);
+                if (res?.responseCode === 200) {
+                    setToken(true)
+                    alert(res?.message)
+                    navigate('product')
+                } else  {
+                    alert('API Not Respond')
+                }
+            }else{
+                alert('Please Fill All Details')
+            }
+                
+        } catch (error) {
+            
         }
+       
        
         
     }
@@ -36,7 +47,7 @@ function Login() {
                 <h2>Register Form</h2>
                 <div className="input-container">
                     <i className="fa fa-user icon"></i>
-                    <input className="input-field" type="text" placeholder="Username" value={form.username} name="username" onChange={(e)=>onChangeHandler(e)}/>
+                    <input className="input-field" type="text" placeholder="Username" value={form.name} name="name" onChange={(e)=>onChangeHandler(e)}/>
                 </div>
 
                 <div className="input-container">

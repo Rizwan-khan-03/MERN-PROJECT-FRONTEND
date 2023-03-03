@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
+import { clearStorage } from '../../App/service';
 
 function Nav() {
     return (
@@ -15,7 +16,7 @@ function Nav() {
                     <NavLink to="/update">Update Product</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/">Logout</NavLink>
+                    <NavLink to="/" onClick={()=>clearStorage()}>Logout</NavLink>
                 </li>
                 <li>
                     <NavLink to="/profile">Profile</NavLink>
